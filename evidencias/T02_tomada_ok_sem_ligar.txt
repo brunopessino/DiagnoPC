@@ -1,0 +1,43 @@
+======================================================================
+  SISTEMA ESPECIALISTA DE DIAGNÓSTICO E MANUTENÇÃO DE COMPUTADORES
+======================================================================
+Este sistema faz apenas uma TRIAGEM. As hipóteses são 'possíveis causas', não defeitos confirmados. Ele não substitui o manual do fabricante nem a avaliação de um técnico.
+
+Qual é o problema principal?
+  [1] Alimentação (o computador não liga)
+  [2] Vídeo (liga, mas não aparece imagem)
+  [3] Desempenho (lentidão)
+  [4] Temperatura e estabilidade (desliga sozinho, esquenta, barulho)
+  [5] Armazenamento (HD/SSD com erros ou ruídos)
+  [6] Rede (internet / Wi-Fi)
+  [0] Encerrar
+Escolha uma opção: 1
+
+--- Triagem: Alimentação (o computador não liga) ---
+
+> O computador não apresenta NENHUM sinal de energia (nenhuma luz, ventoinha ou som ao apertar o botão)?
+  [s] sim   [n] não   [?] não sei: s
+
+> Você já confirmou que a tomada funciona (testando outro aparelho nela) e que o cabo de energia está bem conectado?
+  [s] sim   [n] não   [?] não sei: s
+
+Deseja investigar outra categoria? [s/n]: n
+
+======================================================================
+RESULTADO DA TRIAGEM
+======================================================================
+
+Hipóteses encontradas (1), da maior para a menor prioridade:
+
+1. Possível falha na fonte de alimentação, no botão de energia ou na placa-mãe.
+   Prioridade: ALTA
+   Por quê? Regra R02 acionada porque você informou que o computador não apresenta nenhum sinal de energia e a tomada funciona e o cabo de energia está conectado.
+   O que fazer: Procure avaliação técnica para testar fonte, botão e placa-mãe.
+   Segurança: NÃO abra a fonte nem faça medições elétricas sem qualificação.
+
+Aviso: Este sistema faz apenas uma TRIAGEM. As hipóteses são 'possíveis causas', não defeitos confirmados. Ele não substitui o manual do fabricante nem a avaliação de um técnico.
+======================================================================
+
+Deseja salvar o resumo da consulta em arquivo? [s/n]: n
+
+Consulta encerrada. Até logo!

@@ -1,0 +1,27 @@
+Consulta realizada em 26/11/2026 22:23
+
+Respostas informadas:
+  - O computador desliga sozinho, sem você mandar? -> sim
+  - Isso acontece durante jogos ou tarefas pesadas (edição de vídeo, muitos programas abertos)? -> sim
+  - O computador esquenta muito ou as ventoinhas ficam muito barulhentas? -> sim
+
+======================================================================
+RESULTADO DA TRIAGEM
+======================================================================
+
+Hipóteses encontradas (2), da maior para a menor prioridade:
+
+1. Possível superaquecimento ou instabilidade de alimentação.
+   Prioridade: ALTA
+   Por quê? Regra R05 acionada porque você informou que o computador desliga sozinho e o desligamento acontece durante jogos ou tarefas pesadas.
+   O que fazer: Interrompa as tarefas que provocam o desligamento, mantenha as entradas de ar livres e procure avaliação técnica para medir temperaturas e verificar a alimentação.
+   Segurança: Desligamentos repetidos podem causar perda de dados: faça backup se possível.
+
+2. Possível problema de refrigeração (poeira, entradas de ar obstruídas ou ventoinha com defeito).
+   Prioridade: MÉDIA
+   Por quê? Regra R06 acionada porque você informou que o computador esquenta muito ou as ventoinhas ficam muito ruidosas.
+   O que fazer: Verifique se as entradas de ar estão livres e se há acúmulo de poeira. Recomenda-se limpeza adequada, de preferência por um técnico.
+   Segurança: Não use aspirador nem objetos metálicos dentro do computador.
+
+Aviso: Este sistema faz apenas uma TRIAGEM. As hipóteses são 'possíveis causas', não defeitos confirmados. Ele não substitui o manual do fabricante nem a avaliação de um técnico.
+======================================================================
