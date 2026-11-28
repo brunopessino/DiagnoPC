@@ -1,4 +1,4 @@
 @echo off
 cd /d "%~dp0"
-python servidor_web.py
+python src\interface_web.py
 pause

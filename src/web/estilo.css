@@ -192,6 +192,12 @@ kbd { font-family: var(--mono); background: var(--papel); border: 1px solid var(
 .mensagem-salvo { font-family: var(--mono); font-size: .85rem; color: var(--sinal-escuro);
   word-break: break-all; }
 
+.grupo-saida { margin: 18px 0 28px; }
+.grupo-saida.suspensa { opacity: .62; }
+.desc-saida { margin: 4px 0 0; color: var(--tinta-suave); }
+.trilha { white-space: pre-wrap; font-family: var(--mono); font-size: .78rem; line-height: 1.45;
+  background: var(--petroleo); color: #d7efe8; padding: 16px; border-radius: 10px; overflow-x: auto; }
+
 /* ---------- Rodapé ---------- */
 .rodape { text-align: center; font-size: .8rem; color: var(--tinta-suave); padding: 22px 20px 28px; }
 

@@ -146,45 +146,59 @@ function desenharHistorico() {
 }
 
 /* ---------------- Resultado ---------------- */
+const NOME_SAIDA_INSUFICIENTE = "Não foi possível concluir com os dados informados";
+
 async function telaResultado() {
   const r = await api("/api/resultado", { fatos: estado.fatos });
+  const principal = r.grupos.find((g) => g.principal);
 
-  $("titulo-resultado").textContent = r.hipoteses.length
-    ? `Encontramos ${r.hipoteses.length} ${r.hipoteses.length === 1 ? "possível causa" : "possíveis causas"}`
-    : "Não foi possível concluir com os dados informados";
+  $("titulo-resultado").textContent = principal
+    ? `Encaminhamento: ${principal.nome}`
+    : NOME_SAIDA_INSUFICIENTE;
 
-  $("bloco-contradicoes").innerHTML = r.contradicoes.length ? `
+  $("bloco-contradicoes").innerHTML = r.avisos.length ? `
     <div class="caixa alerta"><h3>Respostas contraditórias</h3>
-      <ul>${r.contradicoes.map((c) => `<li>${escapar(c)}</li>`).join("")}</ul>
-      <p>Essas respostas não foram usadas como fatos confirmados. Revise-as em uma nova consulta.</p>
+      <ul>${r.avisos.map((c) => `<li>${escapar(c)}</li>`).join("")}</ul>
+      <p>Essas respostas passaram a valer "não sei" e não foram usadas como fatos confirmados.</p>
     </div>` : "";
 
-  $("lista-hipoteses").innerHTML = r.hipoteses.length
-    ? r.hipoteses.map((h, i) => `
-      <article class="hipotese ${h.prioridade}">
-        <div class="hipotese-topo">
-          <span class="selo regra">${h.id}</span>
-          <span class="selo ${h.prioridade}">${NOME_PRIORIDADE[h.prioridade]}</span>
-        </div>
-        <h3>${i + 1}. ${escapar(h.hipotese)}</h3>
-        <dl>
-          <div class="campo"><dt>Por quê?</dt><dd>${escapar(h.explicacao)}</dd></div>
-          <div class="campo"><dt>O que fazer</dt><dd>${escapar(h.recomendacao)}</dd></div>
-          ${h.alerta ? `<div class="campo seguranca"><dt>Segurança</dt><dd>${escapar(h.alerta)}</dd></div>` : ""}
-        </dl>
-      </article>`).join("")
-    : `<div class="caixa vazio">Nenhuma regra da base de conhecimento corresponde às respostas.
-         Tente investigar outra categoria ou procure um técnico de confiança.</div>`;
+  const derivados = r.derivados.length ? `
+    <div class="caixa vazio"><h3>Fatos derivados pelo motor</h3><ul>
+      ${r.derivados.map((d) => `<li><b>${escapar(d.fato)}</b> concluído por ${d.regra} na rodada ${d.rodada}</li>`).join("")}
+    </ul></div>` : "";
 
-  $("bloco-aberto").innerHTML = r.em_aberto.length ? `
-    <div class="caixa aberto"><h3>Hipóteses em aberto (faltou informação)</h3>
-      <ul>${r.em_aberto.map((a) => `<li><b>${a.id}:</b> ${escapar(a.hipotese)}
-        ${a.faltando.map((f) => `<br><small>Falta saber: ${escapar(f)}</small>`).join("")}</li>`).join("")}</ul>
-      <p>Se conseguir essas informações, faça uma nova consulta.</p>
+  $("lista-hipoteses").innerHTML = (r.grupos.length
+    ? r.grupos.map((g) => `
+      <section class="grupo-saida ${g.suspensa ? "suspensa" : ""}">
+        <div class="hipotese-topo">
+          <span class="selo regra">${g.saida}</span>
+          ${g.principal ? '<span class="selo alta">Encaminhamento principal</span>' : ""}
+          ${g.suspensa ? '<span class="selo media">Suspensa pela política de prioridade</span>' : ""}
+          ${g.favoravel ? '<span class="selo baixa">O próprio usuário pode fazer</span>' : ""}
+        </div>
+        <p class="desc-saida">${escapar(g.descricao)}</p>
+        ${g.regras.map((h) => `
+        <article class="hipotese ${g.principal ? "alta" : g.favoravel ? "baixa" : ""}">
+          <div class="hipotese-topo"><span class="selo regra">${h.id}</span></div>
+          <h3>${escapar(h.hipotese)}</h3>
+          <dl>
+            <div class="campo"><dt>Por quê?</dt><dd>${escapar(h.porque)}</dd></div>
+            <div class="campo"><dt>O que fazer</dt><dd>${escapar(h.recomendacao)}</dd></div>
+            ${h.alerta ? `<div class="campo seguranca"><dt>Segurança</dt><dd>${escapar(h.alerta)}</dd></div>` : ""}
+            <div class="campo"><dt>Fonte</dt><dd>${escapar(h.fonte)}</dd></div>
+          </dl>
+        </article>`).join("")}
+      </section>`).join("")
+    : `<div class="caixa vazio"><h3>DADOS_INSUFICIENTES</h3>${escapar(r.motivo)}</div>`) + derivados;
+
+  $("bloco-aberto").innerHTML = (r.grupos.length && r.em_aberto.length) ? `
+    <div class="caixa aberto"><h3>Também ficaram em aberto (faltou informação)</h3>
+      <ul>${r.em_aberto.map((a) => `<li><b>${a.regra}:</b> ${escapar(a.motivo)}</li>`).join("")}</ul>
     </div>` : "";
 
   $("lista-respostas").innerHTML = estado.historico.map((h) =>
     `<li>${escapar(h.pergunta)} <b>${TEXTO_VALOR[h.valor]}</b></li>`).join("");
+  $("trilha").textContent = r.trilha;
   $("aviso-resultado").textContent = r.aviso;
   $("mensagem-salvo").textContent = "";
   mostrar("tela-resultado");
